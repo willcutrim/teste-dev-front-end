@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Card } from "../../components/Card";
 import { Navbar } from "../../components/Navbar";
-import { ContainerContent } from "./styles";
-import { Footer } from "../../components/Footer";
 
+import { Footer } from "../../components/Footer";
+import './styles.css';
 export function Home() {
 
     const [noticia, setNoticia] = useState([{
@@ -28,23 +28,21 @@ export function Home() {
         texto: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi expedita eveniet consectetur, voluptates voluptatum, sit excepturi earum. Veniam eius amet, accusantium, deserunt officia, quos qui debitis laboriosam velit quis autem!'
     },
 
-
     ])
 
     return (
         <>
             <Navbar />
+            <div className="home">
 
-            <ContainerContent>
                 {noticia.map(noticia => (
                     <Card
                         title={noticia.titulo}
                         texto={noticia.texto}
                     />
                 ))}
-            </ContainerContent>
-            
-            <Footer />
+            </div>
+            <Footer/>
         </>
     )
 }
