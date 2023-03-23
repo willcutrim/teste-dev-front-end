@@ -1,7 +1,10 @@
-import { ButtonCard } from './styles'
+import './styless.css'
 
 export function Button(){
     return (
-        <ButtonCard>Ver mais</ButtonCard>
+        <div className='button-container'>
+            <button>Ver mais</button>
+            
+        </div>
     )
 }

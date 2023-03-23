@@ -1,0 +1,17 @@
+.home{
+    /* background-color: red; */
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    
+}
+
+@media(max-width: 880px){
+    .home{
+        display: grid;
+        padding: 10px;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+}
+
