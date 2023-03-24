@@ -7,9 +7,10 @@ type PropsCard = {
     title: string;
     texto: string;
     qty?: number;
+    onCLick?: () => void;
 }
 
-export function Card({ texto, title, qty }: PropsCard) {
+export function Card({ texto, title, qty, onCLick }: PropsCard) {
     return (
         <div className="card-container">
             <div className="body-card">
@@ -28,7 +29,9 @@ export function Card({ texto, title, qty }: PropsCard) {
                     </div>
                     <div className="icon-coments">
                         <div><p>{qty}</p></div>
-                        <img src={comentarios} alt='comentarios' />
+                        <button onClick={onCLick}>
+                            <img src={comentarios} alt='comentarios' />
+                        </button>
                     </div>
                 </div>
             </div>
