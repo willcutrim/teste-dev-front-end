@@ -1,4 +1,5 @@
 import { Button } from "../Button";
+import { Link } from "react-router-dom";
 import comentarios from '../../assets/comentarios.svg'
 import './styles.css'
 
@@ -20,10 +21,13 @@ export function Card({ texto, title, qty }: PropsCard) {
                 </div>
                 <div className="group-button">
                     <div>
-                        <Button />
+                        <Button 
+                            title="Ver mais"
+                            onClick={() => {<Link to='/post'></Link>}}
+                        />
                     </div>
                     <div className="icon-coments">
-                        <div><p>10</p></div>
+                        <div><p>{qty}</p></div>
                         <img src={comentarios} alt='comentarios' />
                     </div>
                 </div>

@@ -1,48 +1,74 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../../components/Card";
 import { Navbar } from "../../components/Navbar";
 
 import { Footer } from "../../components/Footer";
 import './styles.css';
+import { PostsDTO } from "../../dtos/PostsDTO";
+import { api } from "../../services/api";
+import { CommentsDTO } from "../../dtos/CommentsDTO";
+import { Button } from "../../components/Button";
+
+
 export function Home() {
 
-    const [noticia, setNoticia] = useState([{
-        titulo: 'Musica nas escolas',
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi expedita eveniet consectetur, voluptates voluptatum, sit excepturi earum. Veniam eius amet, accusantium, deserunt officia, quos qui debitis laboriosam velit quis autem!'
-    },
-    {
-        titulo: 'Musica nas escolas',
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi expedita eveniet consectetur, voluptates voluptatum, sit excepturi earum. Veniam eius amet, accusantium, deserunt officia, quos qui debitis laboriosam velit quis autem!'
-    },
-    {
-        titulo: 'Musica nas escolas',
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi expedita eveniet consectetur, voluptates voluptatum, sit excepturi earum. Veniam eius amet, accusantium, deserunt officia, quos qui debitis laboriosam velit quis autem!'
-    },
+    const [posts, setPosts] = useState<PostsDTO[]>([])
+    const [commentsQt, setCommentsQt] = useState<CommentsDTO[]>([])
+    const [displayedItems, setDisplayedItems] = useState(6);
 
-    {
-        titulo: 'Musica nas escolas',
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi expedita eveniet consectetur, voluptates voluptatum, sit excepturi earum. Veniam eius amet, accusantium, deserunt officia, quos qui debitis laboriosam velit quis autem!'
-    },
-    {
-        titulo: 'Musica nas escolas',
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi expedita eveniet consectetur, voluptates voluptatum, sit excepturi earum. Veniam eius amet, accusantium, deserunt officia, quos qui debitis laboriosam velit quis autem!'
-    },
+    async function fetchPosts() {
+        try {
+            const { data } = await api.get('posts');
+            setPosts(data);
 
-    ])
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function fetchComments() {
+        try {
+            const { data } = await api.get(`posts/${posts[0]['id']}/comments`);
+            setCommentsQt(data)
+
+        } catch (error) {
+            console.log(`erro do comentario - ${error}`);
+        }
+    }
+    useEffect(() => {
+        fetchPosts();
+    }, [])
+
+    useEffect(() => {
+        fetchComments();
+    }, [posts])
 
     return (
         <>
-            <Navbar />
+            <Navbar
+                title="Home"
+            />
             <div className="home">
 
-                {noticia.map(noticia => (
+                {posts.slice(0, displayedItems).map(posts => (
                     <Card
-                        title={noticia.titulo}
-                        texto={noticia.texto}
+                        key={posts.id}
+                        title={posts.title}
+                        texto={posts.body}
+                        qty={commentsQt.length}
                     />
                 ))}
             </div>
-            <Footer/>
+            <div className="container-btn">
+                {posts.length > displayedItems && (
+                    <Button
+                        title="Mostrar mais"
+                        onClick={() => setDisplayedItems(displayedItems + 4)}
+                    />
+                )}
+            </div>
+            <Footer />
         </>
     )
 }
