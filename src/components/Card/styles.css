@@ -50,3 +50,9 @@
 .icon-coments img {
     height: 26px;
 }
+
+.icon-coments button{
+    background-color: transparent;
+    border: 0;
+}
+
