@@ -1,9 +1,14 @@
-import './styless.css'
+import './styles.css'
 
-export function Button(){
+interface ButtonInterface {
+    title: string;
+    onClick: () => void;
+}
+
+export function Button({ title, onClick}: ButtonInterface){
     return (
         <div className='button-container'>
-            <button>Ver mais</button>
+            <button onClick={onClick}>{title}</button>
             
         </div>
     )

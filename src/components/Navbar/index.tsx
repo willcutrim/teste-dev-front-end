@@ -1,8 +1,13 @@
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 import './styles.css'
 import menu from '../../assets/menu.svg'
 
-export function Navbar() {
+type Props = {
+    title: string;
+}
+
+export function Navbar({title}: Props) {
     const [showNavbar, setShowNavbar] = useState(false)
 
     const handleShowNavbar = () => {
@@ -14,7 +19,7 @@ export function Navbar() {
         <nav className="navbar">
             <div className="container">
                 <div className="title-nav">
-                    <h1>News</h1>
+                    <h1>{title}</h1>
                 </div>
                 <div className="menu-icon" onClick={handleShowNavbar}>
                     <img src={menu} alt='menu' />
@@ -22,10 +27,10 @@ export function Navbar() {
                 <div className={`nav-elements  ${showNavbar && 'active'}`}>
                     <ul>
                         <li>
-                            Home
+                            <Link to='/' style={{ color: 'inherit', textDecoration: 'inherit'}}>Home</Link>
                         </li>
                         <li>
-                            Usuarios
+                        <Link to='/usuarios' style={{ color: 'inherit', textDecoration: 'inherit'}}>Usuarios</Link>
                         </li>
                     </ul>
                 </div>
