@@ -14,9 +14,6 @@ type PropsCard = {
 
 export function Card({ texto, title, qty, onCLick, onCLickVerMais }: PropsCard) {
 
-    function navigatePost(id: string){
-        console.log(id)
-    }
 
     return (
         <div className="card-container">

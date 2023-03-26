@@ -5,9 +5,10 @@ import info from '../../assets/information.svg'
 type UserProps = {
     nome: string;
     email: string;
+    onClick?: () => void;
 }
 
-export function CardUser({nome, email}: UserProps){
+export function CardUser({ nome, email, onClick }: UserProps){
     return (
         <div className="card">
             <div className='body-card-user'>
@@ -16,7 +17,9 @@ export function CardUser({nome, email}: UserProps){
                     <p>{email}</p>
                 </div>
                 <div className='icon-div'>
-                    <img src={info} alt='comentarios' />
+                    <button onClick={onClick}>
+                        <img src={info} alt='comentarios' />
+                    </button>
                 </div>
             </div>
         </div>
