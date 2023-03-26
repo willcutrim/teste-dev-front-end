@@ -1,0 +1,15 @@
+
+.icon-back{
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    /* background-color: red; */
+}
+
+.post-div{
+    display: flex;
+}
+
+.post-div h1{
+    color: #000;
+}
