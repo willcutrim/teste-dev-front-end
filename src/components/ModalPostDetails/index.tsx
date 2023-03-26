@@ -19,13 +19,13 @@ export function ModalPost({ isOpen, onClose, data, title, titlePost, bodyPost }:
     if (!isOpen) {
         return null;
     }
-    console.log(titlePost, bodyPost);
+    
     return (
 
         <div className="modal-container-post">
+            <h3>{title}</h3>
             <div className="modal-content-post">
                 <div className="comments-content-post">
-                    <h3>{title}</h3>
                     <Button
                         onClick={onClose}
                         title="Fechar"

@@ -9,12 +9,34 @@ import { Button } from "../../components/Button";
 import back from '../../assets/back.svg'
 import { Link } from "react-router-dom";
 import { Loading } from "../../components/Loading";
+import { ModalUser } from "../../components/ModalUser";
 
 export function AllUsers() {
-    const [user, setuser] = useState<UserDTO[]>([]);
+    const [users, setuser] = useState<UserDTO[]>([]);
     const [displayedItems, setDisplayedItems] = useState(5);
     const [isLoading, setIsLoading] = useState(false);
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [user, setUserDetail] = useState<UserDTO[]>([])
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
 
+    async function openModal(id: string) {
+        try {
+            setIsOpenModal(true)
+            const { data } = await api.get(`users/${id}`);
+            // console.log(data['name'])
+            setUserDetail(data)
+            setName(data['name']);
+            setEmail(data['email']);
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+    
+    function closeModal() {
+        setIsOpenModal(false)
+    }
 
     async function fetchUsers() {
         try {
@@ -34,7 +56,7 @@ export function AllUsers() {
 
     return (
         <>
-            <Navbar 
+            <Navbar
                 title="Usuários"
             />
             <div className="icon-back">
@@ -42,17 +64,23 @@ export function AllUsers() {
                     <img src={back} alt="voltar" />
                 </Link>
             </div>
+            <ModalUser
+                isOpen={isOpenModal}
+                onClose={closeModal}
+                title="Info. do Usuário"
+                info={user}
+            />
             <div className="content">
-                {user.slice(0, displayedItems).map(user => (
+                {users.slice(0, displayedItems).map(users => (
                     <CardUser
-                        key={user.id}
-                        nome={user.name}
-                        email={user.email}
-
+                        key={users.id}
+                        nome={users.username}
+                        email={users.email}
+                        onClick={() => openModal(users.id)}
                     />
                 ))}
                 <div className="container-btn-user">
-                    {user.length > displayedItems && (
+                    {users.length > displayedItems && (
                         <Button
                             title="Mostrar mais"
                             onClick={() => setDisplayedItems(displayedItems + 3)}

@@ -38,4 +38,12 @@
 
 .icon-div img{
     height: 26px;
+    background-color: transparent;
+    border: 0;
+}
+
+.icon-div button{
+    /* height: 26px; */
+    background-color: transparent;
+    border: 0;
 }

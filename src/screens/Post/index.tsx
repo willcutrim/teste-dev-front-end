@@ -23,7 +23,6 @@ export function Post(){
             setPostTitle(data['title']);
             setPostBody(data['body']);
 
-            console.log(data['title'])
         } catch (error) {
             console.log(error)
         }
