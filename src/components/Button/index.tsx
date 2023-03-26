@@ -2,7 +2,7 @@ import './styles.css'
 
 interface ButtonInterface {
     title: string;
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 export function Button({ title, onClick}: ButtonInterface){

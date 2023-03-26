@@ -8,8 +8,9 @@ import { PostsDTO } from "../../dtos/PostsDTO";
 import { api } from "../../services/api";
 import { CommentsDTO } from "../../dtos/CommentsDTO";
 import { Button } from "../../components/Button";
-import { ModelComments } from "../../components/ModalComments";
+import { ModalComments } from "../../components/ModalComments";
 import { CardComments } from "../../components/CardComments";
+import { ModalPost } from "../../components/ModalPostDetails";
 
 
 
@@ -21,10 +22,40 @@ export function Home() {
     const [comentarios, setComentarios] = useState<CommentsDTO[]>([])
     const [displayedItems, setDisplayedItems] = useState(6);
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const [isOpenModalPost, setIsOpenModalPost] = useState(false);
 
-    function openModal() {
+    const [titlePost, setTitlePost] = useState('')
+    const [bodyPost, setBodyPost] = useState('')
 
-        setIsOpenModal(true)
+
+    async function openModal(id: string) {
+        try {
+            setIsOpenModal(true)
+            const { data } = await api.get(`posts/${id}/comments`);
+
+            setComentarios(data)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    async function openModalPost(id: string) {
+        try {
+            setIsOpenModalPost(true)
+            const { data } = await api.get(`posts/${id}`);
+            console.log(data)
+
+            setTitlePost(data['title'])
+            setBodyPost(data['body'])
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    function closeModalPost() {
+        setIsOpenModalPost(false)
     }
 
     function closeModal() {
@@ -35,26 +66,19 @@ export function Home() {
         try {
             const { data } = await api.get('posts');
             setPosts(data);
-
-
         } catch (error) {
             console.log(error);
         }
     }
 
-    async function fetchComments() {
-        try {
-            const { data } = await api.get(`posts/${posts[0]['id']}/comments`);
-            setCommentsQt(data)
-
-        } catch (error) {
-            console.log(`erro do comentario - ${error}`);
-        }
-    }
-
     async function getComments() {
         try {
-            setComentarios(commentsQt)
+
+            for (let post of posts) {
+                const { data } = await api.get(`posts/${post.id}/comments`);
+                setCommentsQt(data)
+            }
+
         } catch (error) {
             console.log(error)
         }
@@ -65,12 +89,9 @@ export function Home() {
     }, [])
 
     useEffect(() => {
-        fetchComments();
+        getComments();
     }, [posts])
 
-    useEffect(() => {
-        getComments();
-    }, [commentsQt])
 
     return (
         <>
@@ -78,9 +99,10 @@ export function Home() {
                 title="Home"
             />
 
-            <ModelComments
+            <ModalComments
                 isOpen={isOpenModal}
                 onClose={closeModal}
+                title="Comentarios"
                 data={comentarios.map(comentarios => (
                     comentarios ?
                         <CardComments
@@ -89,6 +111,15 @@ export function Home() {
                         /> : ''
                 ))}
             />
+
+            <ModalPost
+                isOpen={isOpenModalPost}
+                onClose={closeModalPost}
+                title="Post"
+                titlePost={titlePost}
+                bodyPost={bodyPost}
+            />
+
             <div className="home">
 
                 {posts.slice(0, displayedItems).map(posts => (
@@ -97,7 +128,8 @@ export function Home() {
                         title={posts.title}
                         texto={posts.body}
                         qty={commentsQt.length}
-                        onCLick={() => openModal()}
+                        onCLick={() => openModal(posts.id)}
+                        onCLickVerMais={() => openModalPost(posts.id)}
                     />
                 ))}
             </div>

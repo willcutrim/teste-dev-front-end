@@ -8,9 +8,16 @@ type PropsCard = {
     texto: string;
     qty?: number;
     onCLick?: () => void;
+    onCLickVerMais?: () => void;
+    
 }
 
-export function Card({ texto, title, qty, onCLick }: PropsCard) {
+export function Card({ texto, title, qty, onCLick, onCLickVerMais }: PropsCard) {
+
+    function navigatePost(id: string){
+        console.log(id)
+    }
+
     return (
         <div className="card-container">
             <div className="body-card">
@@ -22,9 +29,9 @@ export function Card({ texto, title, qty, onCLick }: PropsCard) {
                 </div>
                 <div className="group-button">
                     <div>
-                        <Button 
+                        <Button
                             title="Ver mais"
-                            onClick={() => {<Link to='/post'></Link>}}
+                            onClick={onCLickVerMais}
                         />
                     </div>
                     <div className="icon-coments">

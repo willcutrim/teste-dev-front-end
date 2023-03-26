@@ -1,0 +1,16 @@
+.card-post{
+    
+    flex: 1;
+    /* background-color: red; */
+    margin: 50px;
+}
+
+.title-card h2{
+    color: black;
+    font-size: xx-large;
+}
+
+.card-content p{
+    color: #868686;
+}
+

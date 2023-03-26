@@ -7,29 +7,34 @@ import { CommentsDTO } from "../../dtos/CommentsDTO";
 
 type ModalProps = {
     title: string;
+    titlePost: string;
+    bodyPost: string;
     data?: string;
     isOpen: boolean;
     onClose: () => void;
 }
 
-export function ModalComments({ isOpen, onClose, data, title }: ModalProps) {
+export function ModalPost({ isOpen, onClose, data, title, titlePost, bodyPost }: ModalProps) {
     
     if (!isOpen) {
         return null;
     }
-
+    console.log(titlePost, bodyPost);
     return (
 
-        <div className="modal-container">
-            <div className="modal-content">
-                <div className="comments-content">
+        <div className="modal-container-post">
+            <div className="modal-content-post">
+                <div className="comments-content-post">
                     <h3>{title}</h3>
                     <Button
                         onClick={onClose}
                         title="Fechar"
                     />
                 </div>
-                {data}
+                <div className="body-content">
+                    <h1>{titlePost}</h1>
+                    <p>{bodyPost}</p>
+                </div>
             </div>
         </div>
     );
