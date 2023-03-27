@@ -8,8 +8,12 @@ clonar o projeto:
 ```
 git clone https://github.com/willcutrim/teste-dev-front-end.git
 ```
+entre na pasta do projeto:
+```
+cd teste-dev-front-end
+```
 
-executar o comando:
+execute o comando para instalar os pacotes e dependências:
 ```
 npm i
 ```
