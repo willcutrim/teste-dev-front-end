@@ -1,4 +1,4 @@
-# Teste para à vaga e desenvolvedor front end jr
+# Teste para à vaga de desenvolvedor front end jr
 
 
 ## instalação do projeto.
