@@ -1,5 +1,6 @@
 # Teste para à vaga de desenvolvedor front end jr
 
+*- certifique-se de que você tenha o node instaladdo na sua máquina.*
 
 ## instalação do projeto.
 
